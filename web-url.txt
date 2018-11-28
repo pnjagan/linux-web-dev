@@ -1,0 +1,21 @@
+http://blog.devslopes.com/p/6c9b670d-3de3-4dae-b1db-997cc82bc3d5/
+
+
+1. Instead of storing the wishlist locally, fetch wishlist items directly from the API
+
+>Need to change data-service.js 
+  addWishListItem = item => {
+  removeWishListItem = item => {
+
+we need replace push and splice with API calls
+
+2. Allow the creation of a new wishlist and POST it to the API. For help with POST see THIS
+
+>Let us add a small new img link near the Wish List title -> it shd allow us to create a new wishListName
+Above the actual list of item , we should allow a wishlist select drop-down
+We need to implement change wish list functionality as well
+
+3. Have one of the three product components display a video instead of an image. Your code should do a calculation to know which to show. You may have to add a videoURL field to the Mongoose Model in the API. Clicking the video should play it.
+
+>Requires dynamic logic in product.js , during display
+
