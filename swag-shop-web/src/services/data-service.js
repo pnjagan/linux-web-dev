@@ -1,6 +1,5 @@
 import NotificationService,{NOTIF_WISHLIST_CHANGED} from './notification-service';
 
-
 let ns = new NotificationService();
 
 let instance=null;
