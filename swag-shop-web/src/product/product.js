@@ -29,6 +29,7 @@ class Product extends Component {
 
   onWishListChanged(newWishList){
     this.setState({onWishList:ds.itemOnWishList(this.props.product)});
+    console.log('Wish List changed - item on Wish List :'+ds.itemOnWishList(this.props.product));
   }
 
   onButtonClicked = () => {

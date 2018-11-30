@@ -25,6 +25,22 @@ class HTTPService {
     );
     return promise;
   }
+
+
+  getWishList = () => {
+    let promise = new Promise(
+      (resolve,reject)=> {
+        fetch('http://localhost:3004/wishlist').then(res => {
+            console.log('data is fetched');
+            resolve(res.json());
+            //console.log();
+        });
+      }
+    );
+    return promise;
+  }
+
+
 }
 
 export default HTTPService; // new way to export - instead of module.exports = ''
