@@ -3,11 +3,13 @@ import './wishlist.css';
 import ProductCondensed from '../product-condensed/product-condensed.js'
 //import DataService from '../services/data-service'
 import NotificationService,{NOTIF_WISHLIST_CHANGED} from '../services/notification-service'
-import HTTPService from '../services/http-service';
+//import HTTPService from '../services/http-service';
 
+import DataService from '../services/data-service'
+let ds = new DataService();
 
 let ns = new NotificationService();
-const http = new HTTPService();
+//const http = new HTTPService();
 
 class WishList extends Component {
 
@@ -62,6 +64,14 @@ class WishList extends Component {
     return (list);
   }
 
+  onSaveClicked = () => {
+    ds.saveWishList(this.state.wishList);
+  }
+
+  onNewClicked = () => {
+    //ds.saveWishList(this.state.wishList);
+  }
+
   render(){
     return(
       <div className="card">
@@ -69,9 +79,22 @@ class WishList extends Component {
           <h4 className="card-title">
             Wish List
           </h4>
+          <form>
+          <button type="button" className="btn btn-primary btn-sm" onClick={()=>this.onNewClicked()} >Add New Wishlist</button>
+
+          <select name='wishlists' defaultValue='default' className='wishListSelect'>
+           <option value='default'> default</option>
+           <option value='value 2' > value 2</option>
+           <option value='value 1' > value 1</option>
+          </select>
+
+
           <ul className="list-group">
             {this.createWishList()}
           </ul>
+
+          <button type="button" className="btn btn-primary" onClick={()=>this.onSaveClicked()} >Save Wishlist</button>
+          </form>
         </div>
       </div>
 

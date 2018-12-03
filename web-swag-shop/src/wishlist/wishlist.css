@@ -1,0 +1,9 @@
+.wishListSelect {
+  height : 2rem;
+  background-color : #007bff;
+  margin: 4px;
+  padding : 4px;
+  border-radius: 5px;
+  color : white;
+  width: 7rem;
+}

@@ -1,7 +1,7 @@
 http://blog.devslopes.com/p/6c9b670d-3de3-4dae-b1db-997cc82bc3d5/
 
 
-1. Instead of storing the wishlist locally, fetch wishlist items directly from the API
+1. Instead of storing the wishlist locally, fetch wishlist items directly from the API => done , includeing saving and retrieving
 
 >Need to change data-service.js 
   addWishListItem = item => {
@@ -9,7 +9,9 @@ http://blog.devslopes.com/p/6c9b670d-3de3-4dae-b1db-997cc82bc3d5/
 
 we need replace push and splice with API calls
 
-2. Allow the creation of a new wishlist and POST it to the API. For help with POST see THIS
+
+
+2. Allow the creation of a new wishlist and POST it to the API. For help with POST see THIS => *this needs multi-wishlist functionality*
 
 >Let us add a small new img link near the Wish List title -> it shd allow us to create a new wishListName
 Above the actual list of item , we should allow a wishlist select drop-down
@@ -18,4 +20,14 @@ We need to implement change wish list functionality as well
 3. Have one of the three product components display a video instead of an image. Your code should do a calculation to know which to show. You may have to add a videoURL field to the Mongoose Model in the API. Clicking the video should play it.
 
 >Requires dynamic logic in product.js , during display
-
+------------------------------------
+Safe methods are HTTP methods that do not modify resources. For instance, using GET or HEAD on a resource URL, should NEVER change the resource. However, this is not completely true. It means: it won't change the resource representation. It is still possible, that safe methods do change things on a server or resource, but this should not reflect in a different representation. 
+---------
+Idempotent methods
+An idempotent HTTP method is a HTTP method that can be called many times without different outcomes. It would not matter if the method is called only once, or ten times over. The result should be the same. Again, this only applies to the result, not the resource itself. This still can be manipulated (like an update-timestamp, provided this information is not shared in the (current) resource representation.
+--------------------
+Put is idempotent.
+Like a = 4;(Put is like placing)
+post is non idempotent , like
+a = a + 4;(POst is like adding)
+----------------------

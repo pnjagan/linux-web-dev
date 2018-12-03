@@ -34,7 +34,7 @@ class DataService {
         }
       );
     }
-
+    this.wishList = wishList;
 
 
 
@@ -76,6 +76,20 @@ class DataService {
     }
 
   }
+
+  saveWishList = wishList => {
+
+    http.saveWishList(wishList).then(
+      res=>{
+        console.log("Wish list is saved!");
+      }, err => {
+        console.log('ERROR!!!'+err);
+      }
+    );
+
+  }
 }
+
+
 
 export default DataService;

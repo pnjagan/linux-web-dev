@@ -53,7 +53,7 @@ class Product extends Component {
     }
     return(
     <div className='card product'>
-      <img className='card-img-top img-fluid' src={this.props.product.imgUrl} alt='Product' ></img>
+      <img className='card-img-top img-fluid' src={'./images/products/' + this.props.product.imgName} alt='Product' ></img>
       <div className='card-block'>
         <h4 className='card-title'>{this.props.product.title}</h4>
         <p className='card-text'>Price: ${this.props.product.price}</p>

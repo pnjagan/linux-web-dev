@@ -1,0 +1,33 @@
+db.products.insert({"price":40.99,"title":"Vault Boy Bobble Head","imgUrl":"https://s3-us-west-2.amazonaws.com/devslopesvideo/vault.JPG"})
+db.products.insert({"price":129.50,"title":"Link's Shield","imgUrl":"https://s3-us-west-2.amazonaws.com/devslopesvideo/shield.png"})
+db.products.insert({"price":400,"title":"Lancer","imgUrl":"https://s3-us-west-2.amazonaws.com/devslopesvideo/lancer.jpg"})
+
+
+db.products.insert({"price":40.99,"title":"Vault Boy Bobble Head","imgName":"vault.JPG"})
+db.products.insert({"price":129.50,"title":"Link's Shield","imgName":"shield.png"})
+db.products.insert({"price":400,"title":"Lancer","imgName":"lancer.jpg"})
+
+
+db.wishlists.insert({
+    "_id": ObjectId("5c010f0ca226e91192aa1a44"),
+    "title": "default",
+    "__v": 0,
+    "products": [
+        {
+            "_id": ObjectId("5c010cb8c5fee592822546eb")
+        }
+    ]
+});
+
+
+{
+"wishListId":"5c02db2a6e2786298f7bea43"
+,"productId" :"5c010cb8c5fee592822546ea"
+}
+/
+
+> db.wishlists.find({})
+{ "_id" : ObjectId("5c02db2a6e2786298f7bea43"), "title" : "default", "products" : [ { "_id" : "5c010cb8c5fee592822546ea" }, { "_id" : "5c010cb8c5fee592822546eb" } ], "__v" : 1 }
+>
+
+/

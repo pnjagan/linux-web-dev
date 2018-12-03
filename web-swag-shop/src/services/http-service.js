@@ -40,6 +40,33 @@ class HTTPService {
     return promise;
   }
 
+  saveWishList = (wishList) => {
+
+    console.log('Save WISH LIST called');
+
+    console.log(JSON.stringify(wishList));
+
+    let promise = new Promise(
+      (resolve,reject)=> {
+        fetch('http://localhost:3004/wishlist/upd',{
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(wishList)
+        })
+        .then(res => {
+            console.log('wishlist is saved');
+            resolve(res.json());
+            //console.log();
+        },rej=>{
+          console.log('Wishlist could not be saved');
+          reject(rej);
+        });
+      }
+    );
+    return promise;
+  }
 
 }
 
