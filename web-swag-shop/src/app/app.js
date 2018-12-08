@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './app.css';
 import HTTPService from '../services/http-service';
 
 import Product from '../product/product';
 import WishList from '../wishlist/wishlist'
 
+// eslint-disable-next-line
+let log = console.log;
+// eslint-disable-next-line
+let js2t = JSON.stringify;
 
 const http = new HTTPService();
 
@@ -49,16 +53,23 @@ class App extends Component {
 
   productList = ()=>{
 
-    console.log('this is called');
-    console.log('prod len '+this.state.products.length);
+    log('this is called');
+    log('prod len '+this.state.products.length);
 
-    const list = this.state.products.map((product)=>
-      <div className="col-sm-4" key={product._id}>
-        <Product product={product} />
-      </div>
-    );
+
+      const list = this.state.products.map(
+        (product)=>
+          <div className="col-sm-4" key={product._id}>
+            <Product product={product} />
+          </div>
+      );
+
+    log('list len '+ list.length);
+    log('list  '+ list);
 
     return (list); //react expects this parenthesis here
+
+
   }
 
   render() {
@@ -77,7 +88,7 @@ class App extends Component {
             </div>
           </div>
           <div className='col-sm-4'>
-            <WishList />
+            { <WishList /> }
           </div>
         </div>
         </div>

@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import './wishlist.css';
 import ProductCondensed from '../product-condensed/product-condensed.js'
+import WishListDropDown from './wishlist_dropdown.js'
 //import DataService from '../services/data-service'
 import NotificationService,{NOTIF_WISHLIST_CHANGED} from '../services/notification-service'
 //import HTTPService from '../services/http-service';
@@ -11,24 +12,31 @@ let ds = new DataService();
 let ns = new NotificationService();
 //const http = new HTTPService();
 
+// eslint-disable-next-line
+let log = console.log;
+// eslint-disable-next-line
+let js2t = JSON.stringify;
+
+
 class WishList extends Component {
 
     constructor(props){
         super(props);
 
-        //this.state.wishList = {[{}]}
 
-       this.state  = {wishList :
+       this.state  = {
+         wishList :
               {
                 products:[]
               }
+        ,createWishListFormDisplay : 'none'
+        ,newWishListName: "rama's choice"
+        ,createWishListFeedbackMessageDisplay: 'block'
+        ,createWishListFeedbackMessage: ''
        }
-       //this.setState({wishList:{}});
 
 
-
-        //No need to bind if using fatarrow functions
-        this.onWishListChanged = this.onWishListChanged.bind(this);
+      this.onWishListChanged = this.onWishListChanged.bind(this);
 
     }
 
@@ -49,10 +57,7 @@ class WishList extends Component {
   createWishList = () => {
 
     let list = null;
-//    console.log("Products :" + JSON.stringify(this.state.wishList[0]));
 
-    // console.log("test :" + JSON.stringify(test));
-    // let test2 = test;
 
     let wishListTemp = this.state.wishList;
     console.log('create wish list :'+JSON.stringify(wishListTemp));
@@ -68,9 +73,41 @@ class WishList extends Component {
     ds.saveWishList(this.state.wishList);
   }
 
-  onNewClicked = () => {
+  onNewWishListClicked = () => {
     //ds.saveWishList(this.state.wishList);
+    let localCreateWishListFormDisplay = null;
+    if(this.state.createWishListFormDisplay === 'none'){
+      localCreateWishListFormDisplay = 'block'
+    }else{
+      localCreateWishListFormDisplay = 'none'
+    }
+
+    this.setState(
+      {
+        createWishListFormDisplay : localCreateWishListFormDisplay
+      }
+    );
   }
+
+  onCreateWishListClicked = () => {
+    //ds.saveWishList(this.state.wishList);
+    log(' Title of new wish list to be created :' + this.state.newWishListName)
+
+    if(ds.isWishListTitleAlreadyExists(this.state.newWishListName)){
+
+    }else{
+
+    }
+
+  }
+
+  updateWishListNameInputValue = (evt)=> {
+     this.setState({
+       newWishListName: evt.target.value
+     }
+     );
+   }
+
 
   render(){
     return(
@@ -79,14 +116,28 @@ class WishList extends Component {
           <h4 className="card-title">
             Wish List
           </h4>
-          <form>
-          <button type="button" className="btn btn-primary btn-sm" onClick={()=>this.onNewClicked()} >Add New Wishlist</button>
 
-          <select name='wishlists' defaultValue='default' className='wishListSelect'>
-           <option value='default'> default</option>
-           <option value='value 2' > value 2</option>
-           <option value='value 1' > value 1</option>
-          </select>
+
+{/*New wishlist creation code */}
+
+         <button style= {{display: (this.state.createWishListFormDisplay==='none'?'inline-block':'none') }}  type="button" className="btn btn-primary btn-sm" onClick={()=>this.onNewWishListClicked()} >Add New Wishlist</button>
+         <form style={{display: this.state.createWishListFormDisplay }} >
+
+          <div className="row">
+          <div className="col-sm-12">
+            <input type='text' onChange={evt => this.updateWishListNameInputValue(evt)} />
+            <button name="doWishListCreation" type="button" onClick= {()=>{this.onCreateWishListClicked()}}> Create </button><button type="button" name="cancelWishListCreation" onClick={()=>this.onNewWishListClicked()} >Cancel</button>
+          </div>
+          </div>
+
+          <div className="row">
+            <div className="col-sm-12"> <span> {this.state.createWishListFeedbackMessage}</span> </div>
+          </div>
+
+         </form>
+
+
+          <WishListDropDown />
 
 
           <ul className="list-group">
@@ -94,7 +145,7 @@ class WishList extends Component {
           </ul>
 
           <button type="button" className="btn btn-primary" onClick={()=>this.onSaveClicked()} >Save Wishlist</button>
-          </form>
+
         </div>
       </div>
 

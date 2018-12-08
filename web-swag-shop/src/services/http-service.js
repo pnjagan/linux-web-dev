@@ -11,8 +11,9 @@ class HTTPService {
   //Now in promise , asyn function returns a promise
   //or token which can be used to ask for service by whoever has reference to that tocken
 
-  //something like , hey once i complete , i would result with me , you can tell me what you want to do with that result.
-  //once you tell me what you want me to do with that result , i will initiate the process that produces the result
+  //something like , hey once i complete , i would have the result with me , you can tell me what you want to do with that result.
+  //I will do what you want me to do after finishing the exec.
+
   getProducts = () => {
     let promise = new Promise(
       (resolve,reject)=> {
@@ -27,7 +28,7 @@ class HTTPService {
   }
 
 
-  getWishList = () => {
+  getWishLists = () => {
     let promise = new Promise(
       (resolve,reject)=> {
         fetch('http://localhost:3004/wishlist').then(res => {
@@ -40,6 +41,7 @@ class HTTPService {
     return promise;
   }
 
+//can save only 1 wish list at a time?
   saveWishList = (wishList) => {
 
     console.log('Save WISH LIST called');

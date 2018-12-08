@@ -20,7 +20,9 @@ class ProductCondensed extends Component {
     return(
       <li className="list-group-item pc-condensed">
 
-        <a className="btn btn-outline-danger" onClick={()=>this.removeProduct()} href="#">X</a>
+        {/*<a className="btn btn-outline-danger" onClick={()=>this.removeProduct()} href="#">X</a>*/}
+
+        <button className="btn btn-outline-danger" onClick={()=>this.removeProduct()} >X</button>
         <span>{this.props.product.title} | <b>{this.props.product.price}</b></span>
 
       </li>

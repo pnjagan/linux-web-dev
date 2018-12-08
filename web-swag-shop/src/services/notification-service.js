@@ -1,8 +1,13 @@
 export const NOTIF_WISHLIST_CHANGED = "notif_wishlist_changed";
+export const NOTIF_WISHLIST_LOV_DATA_CHANGED = "notif_wishlist_lov_data_changed";
 
+// eslint-disable-next-line
+let assert = require('assert');
 
 let observers ={} //its not an array to avoid looping.
 //We are using object like a Map
+//this has a key for each notif string
+//, and value corresponding to that key is an array with observer and callback
 
 let instance = null
 
@@ -15,15 +20,24 @@ class NotificationService {
     }
 
     postNotification = (notifName , data) => {
+
       let obs = observers[notifName];
+
+      if(obs){
+
+      //start of for LOOP
       for(var x=0; x < obs.length ; x++){
         if(obs){
           let obj = obs[x];
           obj.callBack(data);
         }
-
       }
+      //end of for LOOP
+
+    }else{
+      console.log('Notification fired for an event having no observer');
     }
+  }
 
     removeObserver = (observer, notifName) => {
       let obs = observers[notifName];

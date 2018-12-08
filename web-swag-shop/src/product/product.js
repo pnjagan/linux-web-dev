@@ -7,11 +7,23 @@ let ns = new NotificationService();
 
 let ds = new DataService();
 
+//save some typing
+//also we have a scope to wrap it to not to log when moving to prod
+
+// eslint-disable-next-line
+let log = console.log;
+// eslint-disable-next-line
+let js2t = JSON.stringify;
+
+
 class Product extends Component {
 
   constructor(props){
     super(props);
+
     //console.log('here to avoid useless constructor message :-)');
+    // log('this PRODUCT ' + js2t(this.props));
+    // log(' PRODUCT ' + js2t(props));
 
     this.state = {onWishList: ds.itemOnWishList(this.props.product)};
 
@@ -57,9 +69,9 @@ class Product extends Component {
       <div className='card-block'>
         <h4 className='card-title'>{this.props.product.title}</h4>
         <p className='card-text'>Price: ${this.props.product.price}</p>
-        <a href='#' onClick={()=>this.onButtonClicked()} className={btnClass} >
+        <button onClick={()=>this.onButtonClicked()} className={btnClass} >
           {this.state.onWishList?'Remove from wishList':'Add to cart'}
-        </a>
+        </button>
       </div>
     </div>
   );
