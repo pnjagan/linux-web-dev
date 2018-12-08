@@ -16,9 +16,7 @@ let ns = new NotificationService();
 
 let instance=null;
 
-let wishLists = []; //complete data of all the wishlist and items within
-let currentWishList = null; //current wishlist
-let wistListOptions = []; //wishlist title and Id
+
 
 //eval('1+2');
 
@@ -29,48 +27,13 @@ class DataService {
     if(!instance){
       instance = this;
 
-      http.getWishLists().then(
-        data=>{
-          //console.log(products);
-          log('this is the handler then WL is loaded ...');
+      this.wishLists = []; //complete data of all the wishlist and items within
+      this.currentWishList = null; //current wishlist
+      this.wistListOptions = []; //wishlist title and Id
 
-          //eval('1+2');
-          //setState will replace existing state component
-          this.wishLists = data;//Assume a list of wishList is sent
-          this.wistListOptions = [];
-
-          if(data.length > 0){
-            this.currentWishList = data[0];
-
-          }
-          assert(Array.isArray(this.wishLists))
-
-          this.wistListOptions = this.wishLists.map(
-             mi => { return {_id : mi._id , title : mi.title}}
-          );
-
-          log('Hello World - modules');
-
-          log("Get WLs :"+js2t(this.wishLists));
-          log('WL list option :'+ js2t(this.wistListOptions));
-
-          log('printing wishlistoptions -----------------')
-          console.log(this.wistListOptions);
-
-
-
-          ns.postNotification(NOTIF_WISHLIST_CHANGED,this.currentWishList);
-          ns.postNotification(NOTIF_WISHLIST_LOV_DATA_CHANGED,this.wistListOptions);
-
-
-        }, err => {
-          console.log('ERROR!!!');
-        }
-      );
+      this.loadWishLists();
     }
     //this.wishLists = wishLists;
-
-
 
     return instance;
   }
@@ -102,7 +65,7 @@ class DataService {
       }
     );
 
-    if(matchingItem>0){
+    if(matchingItem.length >0){
       return true;
     }else{
       return false;
@@ -135,6 +98,82 @@ class DataService {
         }
       );
 }
+
+//SAVE only 1 wishlist at a time
+  createNewWishList = title => {
+
+    return http.createNewWishList(title)
+      .then(
+        res=>{
+          console.log("Wish list is created!");
+          this.loadWishLists();
+          return "Wish list is created!";
+        },
+        err => {
+          console.log('ERROR!!!'+err);
+          throw new Error('ERROR!!!' + err);
+        }
+      );
+  }
+
+  loadWishLists = () => {
+    http.getWishLists().then(
+      data=>{
+        //console.log(products);
+        log('this is the handler then WL is loaded ...');
+
+        //eval('1+2');
+        //setState will replace existing state component
+        this.wishLists = data;//Assume a list of wishList is sent
+        this.wistListOptions = [];
+
+        if(data.length > 0){
+          this.currentWishList = data[0];
+
+        }
+        assert(Array.isArray(this.wishLists))
+
+        this.wistListOptions = this.wishLists.map(
+           mi => { return {_id : mi._id , title : mi.title}}
+        );
+
+        // log('Hello World - modules');
+        //
+        // log("Get WLs :"+js2t(this.wishLists));
+        // log('WL list option :'+ js2t(this.wistListOptions));
+        //
+        // log('printing wishlistoptions -----------------')
+        // console.log(this.wistListOptions);
+
+        ns.postNotification(NOTIF_WISHLIST_CHANGED,this.currentWishList);
+        ns.postNotification(NOTIF_WISHLIST_LOV_DATA_CHANGED,this.wistListOptions);
+
+      }, err => {
+        console.log('ERROR!!!');
+      }
+    );
+  }
+
+  setCurrentWishlist = (wishlistId)=>{
+    let wl_res = this.wishLists.filter(wl_element =>{
+      return (wl_element._id === wishlistId);
+    });
+
+    if(wl_res.length>0){
+      this.currentWishList = wl_res[0];
+      ns.postNotification(NOTIF_WISHLIST_CHANGED,this.currentWishList);
+    }
+
+  }
+
+  deleteWishList = ()=>{
+    http.deleteWishList(this.currentWishList._id).then(
+      res=>{
+        this.loadWishLists();
+      }
+    );
+  }
+
 
 }
 

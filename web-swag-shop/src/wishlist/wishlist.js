@@ -93,12 +93,44 @@ class WishList extends Component {
     //ds.saveWishList(this.state.wishList);
     log(' Title of new wish list to be created :' + this.state.newWishListName)
 
-    if(ds.isWishListTitleAlreadyExists(this.state.newWishListName)){
+    if( ds.isWishListTitleAlreadyExists(this.state.newWishListName) ){
+
+      this.setState(
+        {
+          createWishListFeedbackMessageDisplay : 'block'
+          ,createWishListFeedbackMessage : ' The wishlist title to be created "'+this.state.newWishListName+'" already exists!'
+        }
+      );
 
     }else{
 
+      ds.createNewWishList(this.state.newWishListName).then(
+        res =>{
+          this.setState(
+            {
+              createWishListFeedbackMessageDisplay : 'block'
+              ,createWishListFeedbackMessage : ' The wishlist "'+this.state.newWishListName+'" is created successfully!'
+            }
+          );
+        },
+        rej =>{
+          this.setState(
+            {
+              createWishListFeedbackMessageDisplay : 'block'
+              ,createWishListFeedbackMessage : ' Unable to save :'+rej
+            }
+          );
+        }
+      );
+
+
+
     }
 
+  }
+
+  removeCurrentWishListClicked = ()=>{
+    ds.deleteWishList();
   }
 
   updateWishListNameInputValue = (evt)=> {
@@ -121,6 +153,7 @@ class WishList extends Component {
 {/*New wishlist creation code */}
 
          <button style= {{display: (this.state.createWishListFormDisplay==='none'?'inline-block':'none') }}  type="button" className="btn btn-primary btn-sm" onClick={()=>this.onNewWishListClicked()} >Add New Wishlist</button>
+
          <form style={{display: this.state.createWishListFormDisplay }} >
 
           <div className="row">
@@ -139,6 +172,7 @@ class WishList extends Component {
 
           <WishListDropDown />
 
+          <button style= {{display: (this.state.createWishListFormDisplay==='none'?'inline-block':'none') }}  type="button" className="btn btn-primary btn-sm" onClick={()=>this.removeCurrentWishListClicked()} >Remove Wishlist</button>
 
           <ul className="list-group">
             {this.createWishList()}

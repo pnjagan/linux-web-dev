@@ -70,6 +70,59 @@ class HTTPService {
     return promise;
   }
 
+  createNewWishList = (title)  => {
+    let promise = new Promise(
+
+      (resolve,reject)=> {
+        fetch('http://localhost:3004/wishlist',{
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: '{"title" : "'+title + '"}'
+        })
+        .then(res => {
+            console.log('wishlist is saved');
+            resolve(res.json());
+            //console.log();
+        },rej=>{
+          console.log('Wishlist could not be saved');
+          reject(rej);
+        });
+      }
+
+    );
+
+    return promise;
+  }
+
+
+  deleteWishList = (wishlistId)=>{
+    let promise = new Promise(
+
+      (resolve,reject)=> {
+        fetch('http://localhost:3004/wishlist/delete',{
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: '{"_id" : "'+wishlistId + '"}'
+        })
+        .then(res => {
+            console.log('wishlist is deleted');
+            resolve(res.json());
+            //console.log();
+        },rej=>{
+          throw new Error('Wishlist could not be deleted');
+          //reject(rej);
+        });
+      }
+
+    );
+
+    return promise;
+  }
+
 }
 
 export default HTTPService; // new way to export - instead of module.exports = ''

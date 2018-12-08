@@ -72,6 +72,28 @@ app.post('/wishlist', function(request, response) {
     });
 });
 
+app.post('/wishlist/delete', function(request, response) {
+
+  console.log('POST request received');
+
+    //var wishList = new WishList();
+
+      WishList.findByIdAndRemove(
+        request.body._id
+        ,function(err, newWishList) {
+           if (err) {
+               response.status(500).send({error: "Could not delete wishlist"});
+           } else {
+               response.send(newWishList);
+           }
+         }
+      );
+
+    }
+  );
+
+
+
 
 function addProdsWL(wishListId ,prods , ind , request, response){
 

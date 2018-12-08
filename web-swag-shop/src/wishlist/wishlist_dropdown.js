@@ -2,7 +2,7 @@ import React , {Component} from 'react';
 //import './wishlist.css';
 
 
-import NotificationService,{NOTIF_WISHLIST_CHANGED,NOTIF_WISHLIST_LOV_DATA_CHANGED}  from '../services/notification-service'
+import NotificationService,{NOTIF_WISHLIST_LOV_DATA_CHANGED}  from '../services/notification-service'
 
 import DataService from '../services/data-service'
 let ds = new DataService();
@@ -75,7 +75,7 @@ class WishListDropDown extends Component {
   render(){
     return(
 
-          <select name='wishlists' defaultValue='default' className='wishListSelect'>
+          <select name='wishlists' defaultValue='default' className='wishListSelect' onChange={evt => this.wishlistSelectionHandler(evt)}>
            {
              this.state.wishListLovData.map(
              wlod => {
@@ -88,6 +88,12 @@ class WishListDropDown extends Component {
 
   );
   }
+
+  wishlistSelectionHandler = (evt)=> {
+    //ds handler
+    ds.setCurrentWishlist( evt.target.value );
+   }
+
 }
 
 export default WishListDropDown;
