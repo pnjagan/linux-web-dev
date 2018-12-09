@@ -65,7 +65,13 @@ class Product extends Component {
     }
     return(
     <div className='card product'>
-      <img className='card-img-top img-fluid' src={'./images/products/' + this.props.product.imgName} alt='Product' ></img>
+     {
+       (this.props.product.videoURL)?
+         <iframe width="100%"  src={this.props.product.videoURL} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       :
+         <img className='card-img-top img-fluid' src={'./images/products/' + this.props.product.imgName} alt='Product' ></img>
+
+    }
       <div className='card-block'>
         <h4 className='card-title'>{this.props.product.title}</h4>
         <p className='card-text'>Price: ${this.props.product.price}</p>

@@ -31,3 +31,9 @@ Like a = 4;(Put is like placing)
 post is non idempotent , like
 a = a + 4;(POst is like adding)
 ----------------------
+
+
+
+
+
+
